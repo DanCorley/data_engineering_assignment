@@ -8,28 +8,22 @@
 
 # Dan's Work
 
-Forked repo for the SpotOn data engineering assessment. Originally found [HERE](https://github.com/SpotOnInc/data_engineering_assignment)
+Forked repo for the SpotOn data engineering assessment. Originally found [HERE](https://github.com/SpotOnInc/data_engineering_assignment)\
 The bulk of this work is done in a python script, with some setup before.
 
 ### Setup 
 Before triggering the .py script, we need to store credentials for s3 and kaggle, along with setting up a Postgres db instance.
 
  1. Amazon credentials should be stored in `~/.aws/config` and kaggle api stored in `~/.kaggle/kaggle.json`
- 2. A local postgresql database can be created with Docker by using (these credentials are hard coded in script):
-    ```
-    docker run --rm --name  postgres -p 5432:5432 \
-        -e POSTGRES_USER=postgres \
-        -e POSTGRES_PASSWORD=postgres \
-        -e POSTGRES_DB=postgres \
-        -d postgres
-    ```
- 3. create a virtual environment with `python3 -m venv spoton_env`
- 4. install packages with `pip3 install requirements.txt`
- 5. run the script with `python3 kaggle_to_s3_to_pg.py` which will complete the following tasks:
+ 2. cd into this repo directory
+ 3. run `docker-compose up -d` to launch a postgres instance in the background with pre-built tables
+ 4. create a virtual environment with `python3 -m venv spoton_env; source spoton_env/bin/activate`
+ 5. install packages with `pip3 install requirements.txt`
+ 6. run the script with `python3 kaggle_to_s3_to_pg.py` which will complete the following tasks:
     * download and unzip the [Brazilian ecommerce data set](https://www.kaggle.com/olistbr/brazilian-ecommerce) and put into `./brazilian-ecommerce`
     * upload the four required datasets required to Amazon s3 storage
-    * create linked tables in the postgres db
     * pull from the s3 object store and upload to postgres
+ 7. run `docker-compose down -v` to remove the image and volumes
 
 
 # Assignment Test

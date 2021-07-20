@@ -37,7 +37,9 @@ def s3_batch_upload(bucket: str, files: list):
     s3_url_info = {}
 
     for file in files:
-
+        
+        print(f'Uploading {file} to object storage.')
+        
         s3.upload_file(
             Bucket=bucket,
             Filename=os.path.join(local_dir, file),
@@ -71,18 +73,6 @@ def s3_to_dataframe(key: str, s3, bucket):
     return pd.read_csv(StringIO(data_gen.decode('utf-8')))
 
 
-def create_postgres_tables(conn_str):
-
-    db = create_engine(conn_str)
-
-    with db.connect() as conn:
-
-        with open('./db_create_tables.txt') as f:
-            create_query = f.read()
-
-        conn.execute(create_query)
-
-
 def upload_to_db(files: list, conn_str: str):
     
     s3 = _s3_client()
@@ -107,7 +97,6 @@ def upload_to_db(files: list, conn_str: str):
             
             print(f' - Upload took {now} seconds.')
 
-        
 
 if __name__ == '__main__':
     
@@ -128,7 +117,5 @@ if __name__ == '__main__':
     
     with open('csv_s3_file_info.json', 'w') as f:
         json.dump(csv_s3_file_info, f)
-    
-    create_postgres_tables(conn_str)
-    
+        
     upload_to_db(files_to_upload,conn_str)
