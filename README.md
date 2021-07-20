@@ -1,6 +1,38 @@
-# Data Engineering Assignment
 
-## Assignment
+# Spoton Data Engineering Assignment
+
+
+### Quick table of contents
+- [Dan's Work](#dans-work)
+- [Original Assignment](#assignment-test)
+
+# Dan's Work
+
+Forked repo for the SpotOn data engineering assessment. Originally found [HERE](https://github.com/SpotOnInc/data_engineering_assignment)
+The bulk of this work is done in a python script, with some setup before.
+
+### Setup 
+Before triggering the .py script, we need to store credentials for s3 and kaggle, along with setting up a Postgres db instance.
+
+ 1. Amazon credentials should be stored in `~/.aws/config` and kaggle api stored in `~/.kaggle/kaggle.json`
+ 2. A local postgresql database can be created with Docker by using (these credentials are hard coded in script):
+    ```
+    docker run --rm --name  postgres -p 5432:5432 \
+        -e POSTGRES_USER=postgres \
+        -e POSTGRES_PASSWORD=postgres \
+        -e POSTGRES_DB=postgres \
+        -d postgres
+    ```
+ 3. create a virtual environment with `python3 -m venv spoton_env`
+ 4. install packages with `pip3 install requirements.txt`
+ 5. run the script with `python3 kaggle_to_s3_to_pg.py` which will complete the following tasks:
+    * download and unzip the [Brazilian ecommerce data set](https://www.kaggle.com/olistbr/brazilian-ecommerce) and put into `./brazilian-ecommerce`
+    * upload the four required datasets required to Amazon s3 storage
+    * create linked tables in the postgres db
+    * pull from the s3 object store and upload to postgres
+
+
+# Assignment Test
 Your task is to automate the download and ingestion of the [Brazilian ecommerce data set](https://www.kaggle.com/olistbr/brazilian-ecommerce) using the Kaggle API. 
 
 1) Fork this repo to your account
@@ -23,7 +55,9 @@ Your task is to automate the download and ingestion of the [Brazilian ecommerce 
 
 
 ## Acceptance Criteria
-- We will pulling from the master/main branch of your provided repo link
-- We should be able to run your code by running the following command `docker-compose up`.
-- We should be able to access the generated tables in the Postgres DB at `localhost:5432`.
-- **Note, feel free to use patterns that you might otherwise avoid if they save a significant amount of time.  However, be sure to call these out in your `nextsteps.md` and be prepared to discuss how you might implement given additional time.**
+
+
+- [x] We will pulling from the master/main branch of your provided repo link
+- [ ] We should be able to run your code by running the following command `docker-compose up`.
+- [x] We should be able to access the generated tables in the Postgres DB at `localhost:5432`.
+- [x] **Note, feel free to use patterns that you might otherwise avoid if they save a significant amount of time.  However, be sure to call these out in your `nextsteps.md` and be prepared to discuss how you might implement given additional time.**
