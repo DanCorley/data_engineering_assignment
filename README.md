@@ -14,16 +14,16 @@ The bulk of this work is done in a python script, with some setup before.
 ### Setup 
 Before triggering the .py script, we need to store credentials for s3 and kaggle, along with setting up a Postgres db instance.
 
- 1. Amazon credentials should be stored in `~/.aws/config` and kaggle api stored in `~/.kaggle/kaggle.json`
- 2. cd into this repo directory
+ 1. Credentials should be stored in `~/.aws/config` for Amazon and `~/.kaggle/kaggle.json` for Kaggle
+ 2. cd into this directory
  3. run `docker-compose up -d` to launch a postgres instance in the background with pre-built tables
  4. create a virtual environment with `python3 -m venv spoton_env; source spoton_env/bin/activate`
- 5. install packages with `pip3 install requirements.txt`
+ 5. install packages with `pip3 install -r requirements.txt`
  6. run the script with `python3 kaggle_to_s3_to_pg.py` which will complete the following tasks:
     * download and unzip the [Brazilian ecommerce data set](https://www.kaggle.com/olistbr/brazilian-ecommerce) and put into `./brazilian-ecommerce`
-    * upload the four required datasets required to Amazon s3 storage
+    * upload the four required datasets to Amazon s3 storage
     * pull from the s3 object store and upload to postgres
- 7. run `docker-compose down -v` to remove the image and volumes
+ 7. run `docker-compose down -v` to remove the container and volumes
 
 
 # Assignment Test
